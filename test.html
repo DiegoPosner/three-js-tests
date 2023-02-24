@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+        <div id="whole_deal">
+            <p>elloh</p>
+            <canvas id="previewCanvas"></canvas>    
+        </div>
+        <link rel="stylesheet" href="test.css">
+	</head>
+	<body>
+		<script type="module">
+			import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+
+            const canvasElement = document.getElementById("previewCanvas");
+
+			// Our Javascript will go here.
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+            const renderer = new THREE.WebGLRenderer({canvas: canvasElement});
+            renderer.setSize( window.innerWidth/2, window.innerHeight/2 );
+            // document.body.appendChild( renderer.domElement );
+
+            const geometry = new THREE.BufferGeometry();
+
+            /*
+            
+            */
+
+            //okok so I'm thinking 3d cubic bezier curves but you manipulate them on a 2d plane, and I guess control the depth w like a slider
+            function getSpacedSamples()
+            
+            //connects 2 cubic bezier curves like a prism with like 2 bases idk lmlkamsdlfkamlskfm
+            function connect2cubicb(cubicb1,cubicb2){
+                
+            }
+
+            const quadVertices = new Float32Array([
+                0,0,0,
+                0,0,1,
+                0,1,1,
+                0,1,0
+            ]);
+
+            function quadsToTriangles(quadArray) {
+                const triArray = [];
+                for(let i=0; i<quadArray.length;i+=12){
+                    triArray.push(...quadArray.slice(i,i+9),...quadArray.slice(i+6,i+11),quadArray[i+11],...quadArray.slice(i,i+3));
+                }
+                return new Float32Array(triArray);
+            }
+
+            const vertices=quadsToTriangles(quadVertices);
+
+            // itemSize = 3 because there are 3 values (components) per vertex
+            geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+            const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+
+
+            const mesh = new THREE.Mesh( geometry, material );
+
+            scene.add( mesh );
+
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame( animate );
+                // mesh.rotation.x += 0.1;
+                mesh.rotation.y += 0.1;
+                renderer.render( scene, camera );
+            }
+            animate();
+		</script>
+	</body>
+</html>

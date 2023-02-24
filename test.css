@@ -1,0 +1,7 @@
+#whole_deal{
+    background-color: grey;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
